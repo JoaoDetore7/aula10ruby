@@ -8,38 +8,40 @@ def exibir_menu
     puts "---------------------------"
   end
   
-  def adicionar_contato(contact_list)
+  def add_contact(contact_list)
     puts "----"
     print "Digite o nome do contato: "
     name = gets.chomp
+    contact_list[:name] = name
     print "Digite o número de telefone: "
     phone = gets.chomp
-    contact_list[name] = phone
+    contact_list[:phone] = phone
+    
     puts "Contato adicionado com sucesso!"
     puts "----"
   end
   
-  def remover_contato(contact_list)
+  def delete_contact(contact_list)
     puts "----"
     print "Digite o nome do contato que deseja remover: "
     name = gets.chomp
-    if contact_list.key?(name)
-      contact_list.delete(name)
-      puts "Contato removido com sucesso!"
+    if contact_list.has_key?(name.to_sym)
+    contact_list.delete(name.to_sym)
+    puts "Contato removido com sucesso!"
     else
-      puts "Contato não encontrado na agenda."
+    puts "Contato não encontrado na agenda."
     end
     puts "----"
   end
   
-  def atualizar_contato(contact_list)
+  def upgrade_contact(contact_list)
     puts "----"
     print "Digite o nome do contato que deseja atualizar: "
     name = gets.chomp
-    if contact_list.key?(name)
+    if contact_list.has_key?(:name)
       print "Digite o novo número de telefone: "
       phone = gets.chomp
-      contact_list[name] = phone
+      contact_list[:phone] = phone
       puts "Contato atualizado com sucesso!"
     else
       puts "Contato não encontrado na agenda."
@@ -47,7 +49,7 @@ def exibir_menu
     puts "----"
   end
   
-  def visualizar_contatos(contact_list)
+  def show_contact(contact_list)
     puts "----"
     if contact_list.empty?
       puts "A agenda está vazia."
@@ -66,13 +68,13 @@ def exibir_menu
   
     case opcao
     when 1
-      adicionar_contato(contact_list)
+      add_contact(contact_list)
     when 2
-      remover_contato(contact_list)
+      delete_contact(contact_list)
     when 3
-      atualizar_contato(contact_list)
+      upgrade_contact(contact_list)
     when 4
-      visualizar_contatos(contact_list)
+      show_contact(contact_list)
     when 5
       puts "----"
       puts "Até logo!"
